@@ -659,9 +659,6 @@ public:
     return getOS() == Triple::Win32;
   }
 
-  /// Tests whether the OS is Windows or UEFI.
-  bool isOSWindowsOrUEFI() const { return isOSWindows() || isUEFI(); }
-
   /// Checks if the environment is MSVC.
   bool isKnownWindowsMSVCEnvironment() const {
     return isOSWindows() && getEnvironment() == Triple::MSVC;
@@ -1218,6 +1215,9 @@ public:
 
   /// Test whether target triples are compatible.
   bool isCompatibleWith(const Triple &Other) const;
+
+  /// Test whether the target triple is for a GPU.
+  bool isGPU() const { return isSPIRV() || isNVPTX() || isAMDGPU(); }
 
   /// Merge target triples.
   std::string merge(const Triple &Other) const;
